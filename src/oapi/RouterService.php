@@ -86,6 +86,11 @@ class RouterService
         $validationFields = null;
 
         foreach ($method->getParameters() as $param) {
+
+            if ($param->getType() === null) {
+                continue;
+            }
+
             $paramName = $param->getType()->getName();
 
             if (stripos($paramName, 'App\Http\Requests') === false) {
