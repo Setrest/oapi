@@ -2,8 +2,8 @@
 
 return [
 
-    'title' => 'Nutrioniq API documentation',
-    'description' => 'Description',
+    'title' => 'OpenAPI documentation.',
+    'description' => 'Auto generated apip documentation',
     'version' => "1.0",
 
     'servers' => [
@@ -21,4 +21,6 @@ return [
     'api_middleware' => 'api',
 
     'storage_path' => null,
+
+    'hide_head' => true,
 ];

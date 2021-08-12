@@ -53,7 +53,7 @@ class RouterService
                 continue;
             }
 
-            $routeSpec = new RouteSpec($route->uri(), $route->methods(), in_array('guest', $route->middleware()));
+            $routeSpec = new RouteSpec($route->uri(), $this->getRouteMethods($route), in_array('guest', $route->middleware()));
 
             if ($tag = $this->getPartFromComment('category', $reflection->getDocComment())) {
                 $routeSpec->addTag($tag);
@@ -81,6 +81,18 @@ class RouterService
         }
 
         return $rows;
+    }
+
+    private function getRouteMethods($route): array
+    {
+        $methods = $route->methods();
+        $hideHeadMethods = config('hide_head') ?? true;
+        
+        if ($hideHeadMethods) {
+            unset($methods[array_search('HEAD', $methods)]);
+        }
+
+        return $methods;
     }
 
     public function getRequestParam(ReflectionMethod $method)
