@@ -99,9 +99,9 @@ class RouteSpec
         return $this;
     }
 
-    public function addRules(array $rules): self
+    public function addRules(?array $rules): self
     {
-        $this->rules = $rules;
+        $this->rules = $rules ?? [];
         return $this;
     }
 
