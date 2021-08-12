@@ -3,7 +3,7 @@
 namespace Setrest\OAPIDocumentation;
 
 use Illuminate\Support\ServiceProvider;
-use Setrest\OAPIDocumentation\Console\GenerateDocumentation;
+use Setrest\OAPIDocumentation\Console\Commands\GenerateDocumentation;
 
 class OpenAPIServiceProvider extends ServiceProvider
 {
