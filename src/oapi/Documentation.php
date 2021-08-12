@@ -3,8 +3,6 @@
 namespace Setrest\OAPIDocumentation;
 
 use Setrest\OAPIDocumentation\OpenapiFile\OAPIPath;
-use Illuminate\Console\Command;
-use Illuminate\Console\OutputStyle;
 use Illuminate\Support\Facades\Route;
 
 class Documentation

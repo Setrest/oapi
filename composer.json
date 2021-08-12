@@ -5,17 +5,28 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Aleksey Shorokhov",
             "email": "al.ho99@yandex.ru"
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "laravel/framework": ">=8.40.0 || ^7.0"
     },
-    "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
             "Setrest\\OAPIDocumentation\\": "src/oapi"
         }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Setrest\\OAPIDocumentation\\OpenAPIServiceProvider"
+            ],
+            "aliases": {
+                "OAPIDocumentation": "Setrest\\OAPIDocumentation"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
