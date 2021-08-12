@@ -15,7 +15,7 @@ class ArrayFinder extends CoreResponseFinder
         preg_match_all('~\(\[([\s\S]*?)\]~', $oneLine, $matches);
 
         if (empty($matches[1])) {
-            return $this->skip();
+            return $this->skip($returnCode, $methodCode);
         }
 
         preg_match("/\d+/", str_replace($matches[1][0], '', $oneLine), $codeMatches);

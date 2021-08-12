@@ -31,11 +31,6 @@ abstract class CoreResponseFinder implements FinderInterface
      */
     public function find(array $returnCode, array $methodCode): ?ResponseSpec
     {
-        if (!$this->returnCode && !$this->methodCode) {
-            $this->returnCode = $returnCode;
-            $this->methodCode = $methodCode;
-        } 
-
         if ($this->nextFinder) {
             return $this->nextFinder->find($returnCode, $methodCode);
         }
@@ -48,9 +43,9 @@ abstract class CoreResponseFinder implements FinderInterface
      *
      * @return void
      */
-    protected function skip()
+    protected function skip(array $returnCode, array $methodCode)
     {
-        return self::find($this->getReturnCode(), $this->getMethodCode());
+        return self::find($returnCode, $methodCode);
     }
 
     /**

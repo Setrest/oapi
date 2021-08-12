@@ -8,8 +8,7 @@ class ResourceFinder extends CoreResponseFinder
 {
     public function find(array $returnCode, array $methodCode): ?ResponseSpec
     {
-        $responseSpec = new ResponseSpec();
-        return parent::find($returnCode, $methodCode);
+        return $this->skip($returnCode, $methodCode);
 
         return null;
     }
