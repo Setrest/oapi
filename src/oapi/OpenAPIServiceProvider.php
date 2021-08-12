@@ -16,7 +16,7 @@ class OpenAPIServiceProvider extends ServiceProvider
     {
         // Publish a config file
         $this->publishes([
-            __DIR__.'/../../config/oapidocs.php' => config_path('oapidocs.php'),
+            __DIR__.'/../config/oapidocs.php' => config_path('oapidocs.php'),
         ]);
 
         //Register commands
