@@ -41,15 +41,15 @@ abstract class CoreResponseFinder implements FinderInterface
      */
     protected function skip()
     {
-        return parent::find($this->getReturnCode(), $this->getMethodCode());
+        return self::find($this->getReturnCode(), $this->getMethodCode());
     }
 
     /**
      * Getting a return code
      *
-     * @return string
+     * @return array
      */
-    protected function getReturnCode(): string
+    protected function getReturnCode(): array
     {
         return $this->returnCode;
     }
@@ -57,9 +57,9 @@ abstract class CoreResponseFinder implements FinderInterface
     /**
      * Getting a full code of concrete method
      *
-     * @return string
+     * @return array
      */
-    protected function getMethodCode(): string
+    protected function getMethodCode(): array
     {
         return $this->methodCode;
     }
