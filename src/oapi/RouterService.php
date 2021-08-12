@@ -25,9 +25,11 @@ class RouterService
     {
         $routes = [];
         foreach ($this->router->getRoutes()->getRoutes() as $route) {
-            if (strpos($route->uri(), 'api/') === 0) {
-                $routes[] = $route;
+            if (!in_array(config('oapidocs.api_middleware'), $route->middleware())) {
+                continue;
             }
+
+            $routes[] = $route;
         }
 
         usort($routes, function (Route $a, Route $b) {

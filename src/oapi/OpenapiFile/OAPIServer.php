@@ -6,6 +6,9 @@ use Setrest\OAPIDocumentation\OpenapiFile\Interfaces\OAPISectionInterface;
 
 class OAPIServer implements OAPISectionInterface
 {
+    /**
+     * @var array
+     */
     protected $servers = [];
 
     public function __construct(string $url, string $description)
@@ -20,6 +23,11 @@ class OAPIServer implements OAPISectionInterface
     }
 
     /**
+     * Converting to array from data of object.
+     * Returns array with:
+     * - url
+     * - description
+     * 
      * @return array
      */
     public function toArray(): array
@@ -31,6 +39,8 @@ class OAPIServer implements OAPISectionInterface
     }
 
     /**
+     * Add servers from oapi config
+     * 
      * @return array|null
      */
     public static function initFromConfig(): ?array

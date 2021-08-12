@@ -7,22 +7,16 @@ use Setrest\OAPIDocumentation\OpenapiFile\Interfaces\OAPISectionInterface;
 class OAPIInfo implements OAPISectionInterface
 {
     /**
-     * Title of documentation
-     *
      * @var string
      */
     protected $title = null;
 
     /**
-     * Description of documentation
-     *
      * @var string
      */
     protected $description = null;
 
     /**
-     * Version of documentation
-     *
      * @var string
      */
     protected $version = null;

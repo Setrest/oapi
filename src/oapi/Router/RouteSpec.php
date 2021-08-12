@@ -4,18 +4,39 @@ namespace Setrest\OAPIDocumentation\Router;
 
 class RouteSpec
 {
+    /**
+     * @var string
+     */
     private $uri;
 
+    /**
+     * @var array
+     */
     private $methods;
 
+    /**
+     * @var boolean
+     */
     private $isQuest = false;
 
+    /**
+     * @var array|null
+     */
     private $tags;
 
+    /**
+     * @var string
+     */
     private $summary;
 
+    /**
+     * @var array
+     */
     private $rules;
 
+    /**
+     * @var ResponseSpec
+     */
     private $response;
 
     public function __construct(string $uri, array $methods, bool $isQuest = false)

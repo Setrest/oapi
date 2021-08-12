@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Setrest\OAPIDocumentation\Console;
 
 use Illuminate\Support\Facades\App;
 use Setrest\OAPIDocumentation\Documentation;
 
-class GenerateDocumentation extends App\Console\Commands\Command
+class GenerateDocumentation extends Command
 {
     /**
      * The name and signature of the console command.

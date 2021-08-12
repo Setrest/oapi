@@ -4,10 +4,19 @@ namespace  Setrest\OAPIDocumentation\OpenapiFile;
 
 class OAPIPathResponse
 {
+    /**
+     * @var int
+     */
     protected $code;
 
+    /**
+     * @var string
+     */
     protected $description;
 
+    /**
+     * @var array
+     */
     protected $properties;
 
     public function __construct(int $code = 200, string $description = 'Success request!')
@@ -16,15 +25,36 @@ class OAPIPathResponse
         $this->description = $description;
     }
 
-    public function addProperty(string $property, string $type = "string", string $description = "")
+    /**
+     * Adding a property to the response path.
+     *
+     * @param string $property
+     * @param string $type
+     * @param string $description
+     * @return self
+     */
+    public function addProperty(string $property, string $type = "string", string $description = ""): self
     {
         $this->properties[] = [
             'name' => $property,
             'type' => $type,
             'description' => $description
         ];
+
+        return $this;
     }
 
+    /**
+     * Converting to array from data of object. 
+     * Returns array with:
+     * - description
+     * - content|null
+     * -- application/json
+     * --- schema
+     * ---- properties
+     * 
+     * @return array
+     */
     public function toArray(): array
     {
         $properties = [];

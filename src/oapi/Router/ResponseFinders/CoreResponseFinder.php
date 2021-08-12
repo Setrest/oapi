@@ -18,6 +18,13 @@ abstract class CoreResponseFinder implements FinderInterface
         return $finder;
     }
 
+    /**
+     * Finds specific response elements
+     *
+     * @param array $returnCode
+     * @param array $methodCode
+     * @return ResponseSpec|null
+     */
     public function find(array $returnCode, array $methodCode): ?ResponseSpec
     {
         if ($this->nextFinder) {
@@ -27,11 +34,31 @@ abstract class CoreResponseFinder implements FinderInterface
         return null;
     }
 
+    /**
+     * Skiping if not found needed part of code
+     *
+     * @return void
+     */
+    protected function skip()
+    {
+        return parent::find($this->getReturnCode(), $this->getMethodCode());
+    }
+
+    /**
+     * Getting a return code
+     *
+     * @return string
+     */
     protected function getReturnCode(): string
     {
         return $this->returnCode;
     }
 
+    /**
+     * Getting a full code of concrete method
+     *
+     * @return string
+     */
     protected function getMethodCode(): string
     {
         return $this->methodCode;
