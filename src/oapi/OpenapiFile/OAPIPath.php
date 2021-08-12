@@ -8,41 +8,79 @@ use Illuminate\Support\Str;
 
 class OAPIPath implements OAPISectionInterface
 {
+    /**
+     * @var string
+     */
     protected $summary = "";
 
+    /**
+     * @var string
+     */
     protected $path;
 
+    /**
+     * @var string
+     */
     protected $method;
 
+    /**
+     * @var array
+     */
     protected $tags;
 
-    protected $parameters;
+    /**
+     * @var array
+     */
+    protected $parameters = [];
 
+    /**
+     * @var ResponseSpec
+     */
     protected $responses;
-
-    protected $requestBody;
 
     public function __construct(string $path, string $summary, string $method, array $tags = null)
     {
         $this->path = $path;
         $this->summary = $summary;
         $this->method = $method;
-        $this->parameters = [];
         $this->tags = $tags ?? ['Common']; 
     }
 
-    public function addParameter(string $name, string $type, bool $required = true, string $description = "", string $example = '')
+    /**
+     * Added path parameter
+     *
+     * @param string $name
+     * @param string $type
+     * @param boolean $required
+     * @param string $description
+     * @param string $example
+     * @return self
+     */
+    public function addParameter(string $name, string $type, bool $required = true, string $description = "", string $example = ''): self
     {
         $this->parameters[] = new OAPIPathParameter($name, $type, $required, $example, $description);
         return $this;
     }
 
+    /**
+     * Parsing rules from validation
+     *
+     * @param string $name
+     * @param string $rule
+     * @return self
+     */
     public function addParameterFromValidation(string $name, string $rule): self
     {
         $this->parameters[] = OAPIPathParameter::parseFromValidation($name, $rule)->toArray();
         return $this;
     }
 
+    /**
+     * Adding a response to the path from the searchers.
+     *
+     * @param ResponseSpec $response
+     * @return self
+     */
     public function addResponseFromSpecs(ResponseSpec $response): self
     {
         $oapiResponse = new OAPIPathResponse($response->getCode(), $response->getDescription());
@@ -58,6 +96,11 @@ class OAPIPath implements OAPISectionInterface
         return $this;
     }
 
+    /**
+     * Converting to array from data of object. 
+     *
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -68,11 +111,9 @@ class OAPIPath implements OAPISectionInterface
         ];   
     }
 
-    public static function initFromConfig()
-    {
-        return null;
-    }
-
+    /**
+     * @return string
+     */
     public function getPath(): string
     {
         if ($this->path[0] !== '/') {
@@ -82,8 +123,16 @@ class OAPIPath implements OAPISectionInterface
         return $this->path;
     }
 
+    /**
+     * @return string
+     */
     public function getMethod(): string
     {
         return Str::lower($this->method);
+    }
+
+    public static function initFromConfig()
+    {
+        return null;
     }
 }

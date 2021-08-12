@@ -25,9 +25,11 @@ class RouterService
     {
         $routes = [];
         foreach ($this->router->getRoutes()->getRoutes() as $route) {
-            if (strpos($route->uri(), 'api/') === 0) {
-                $routes[] = $route;
+            if (!in_array(config('oapidocs.api_middleware'), $route->middleware())) {
+                continue;
             }
+
+            $routes[] = $route;
         }
 
         usort($routes, function (Route $a, Route $b) {
@@ -51,7 +53,7 @@ class RouterService
                 continue;
             }
 
-            $routeSpec = new RouteSpec($route->uri(), $route->methods(), in_array('guest', $route->middleware()));
+            $routeSpec = new RouteSpec($route->uri(), $this->getRouteMethods($route), in_array('guest', $route->middleware()));
 
             if ($tag = $this->getPartFromComment('category', $reflection->getDocComment())) {
                 $routeSpec->addTag($tag);
@@ -79,6 +81,18 @@ class RouterService
         }
 
         return $rows;
+    }
+
+    private function getRouteMethods($route): array
+    {
+        $methods = $route->methods();
+        $hideHeadMethods = config('hide_head') ?? true;
+        
+        if ($hideHeadMethods && in_array('HEAD', $methods)) {
+            unset($methods[array_search('HEAD', $methods)]);
+        }
+
+        return $methods;
     }
 
     public function getRequestParam(ReflectionMethod $method)

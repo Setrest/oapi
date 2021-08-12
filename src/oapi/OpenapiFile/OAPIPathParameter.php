@@ -8,24 +8,54 @@ use Exception;
 
 class OAPIPathParameter
 {
+    /**
+     * @var string
+     */
     protected $name;
 
+    /**
+     * @var string
+     */
     protected $in;
 
+    /**
+     * @var string
+     */
     protected $description;
 
+    /**
+     * @var string
+     */
     protected $type;
 
+    /**
+     * @var string
+     */
     protected $example;
 
+    /**
+     * @var bool
+     */
     protected $required;
 
+    /**
+     * @var array
+     */
     protected $items;
 
+    /**
+     * @var bool
+     */
     protected $nullable;
 
+    /**
+     * @var mixed
+     */
     protected $max;
 
+    /**
+     * @var mixed
+     */
     protected $min;
 
     public function __construct(string $name, string $type = null, bool $required = false, string $example = "", string $description = "", string $in = 'query')
@@ -41,6 +71,9 @@ class OAPIPathParameter
         $this->min = null;
     }
 
+    /**
+     * Detecting laravel validation params
+     */
     public function __call($name, $arguments)
     {
         $stringTypes = [
@@ -78,9 +111,17 @@ class OAPIPathParameter
         return $this;
     }
 
-    public static function parseFromValidation(string $name, string $rule): self
+    /**
+     * Analysis of the found query rules
+     *
+     * @param string $name
+     * @param mixed $rule
+     * @return self
+     */
+    public static function parseFromValidation(string $name, $rule): self
     {
         $param = new self($name);
+        $rule = !is_string($rule) ? $rule->__toString() : $rule; 
         $parsedRules = explode('|', $rule);
 
         foreach ($parsedRules as $concreteRule) {            
@@ -103,7 +144,7 @@ class OAPIPathParameter
     }
 
     /**
-     * Serialization of object.
+     * Converting to array from data of object.
      *
      * @return array
      */
@@ -149,25 +190,37 @@ class OAPIPathParameter
         return $this;
     }
 
+    /**
+     * @return self
+     */
     public function required($value): self
     {
         $this->required = true;
         return $this;
     }
 
+    /**
+     * @return self
+     */
     public function nullable($value): self
     {
         $this->nullable = true;
         return $this;
     }
 
-    public function max($value)
+    /**
+     * @return self
+     */
+    public function max($value): self
     {
         $this->max = $value;
         return $this;
     }
 
-    public function min($value)
+    /**
+     * @return self
+     */
+    public function min($value): self
     {
         $this->min($value);
         return $this;
