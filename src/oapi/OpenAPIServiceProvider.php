@@ -15,7 +15,7 @@ class OpenAPIServiceProvider extends ServiceProvider
     public function boot()
     {
         // Publish a config file
-        $configPath = __DIR__.'/../config/oapidocs.php';
+        $configPath = __DIR__.'/../../config/oapidocs.php';
         $this->publishes([
             $configPath => config_path('oapidocs.php'),
         ], 'config');
