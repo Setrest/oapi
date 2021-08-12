@@ -16,7 +16,7 @@ class OpenAPIServiceProvider extends ServiceProvider
     {
         // Publish a config file
         $this->publishes([
-            __DIR__.'/../config/oapidocs.php' => config_path('oapidocs.php'),
+            __DIR__.'/../../config/oapidocs.php' => config_path('oapidocs.php'),
         ]);
 
         //Register commands
@@ -30,19 +30,8 @@ class OpenAPIServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $configPath = __DIR__.'/../config/l5-swagger.php';
-        $this->mergeConfigFrom($configPath, 'l5-swagger');
-
-        $this->app->singleton('command.l5-swagger.generate', function ($app) {
-            return $app->make(GenerateDocsCommand::class);
-        });
-
-        $this->app->bind(Generator::class, function ($app) {
-            $documentation = config('l5-swagger.default');
-
-            $factory = $app->make(GeneratorFactory::class);
-
-            return $factory->make($documentation);
+        $this->app->singleton('command.oapi.generate', function ($app) {
+            return $app->make(GenerateDocumentation::class);
         });
     }
 
