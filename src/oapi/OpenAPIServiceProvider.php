@@ -17,7 +17,7 @@ class OpenAPIServiceProvider extends ServiceProvider
         // Publish a config file
         $this->publishes([
             __DIR__.'/../../config/oapidocs.php' => config_path('oapidocs.php'),
-        ]);
+        ], 'config');
 
         //Register commands
         $this->commands([GenerateDocumentation::class]);
@@ -30,8 +30,17 @@ class OpenAPIServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $configPath = __DIR__.'/../../config/oapidocs.php';
+        $this->mergeConfigFrom($configPath, 'oapidocs');
+
         $this->app->singleton('command.oapi.generate', function ($app) {
             return $app->make(GenerateDocumentation::class);
+        });
+
+        $this->app->bind(Documentation::class, function ($app) {
+            $documentation = config('oapidocs');
+            $factory = $app->make(DocumentationFactory::class);
+            return $factory->make($documentation);
         });
     }
 

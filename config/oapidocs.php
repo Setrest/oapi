@@ -19,4 +19,6 @@ return [
     ],
 
     'api_middleware' => 'api',
+
+    'storage_path' => null,
 ];
