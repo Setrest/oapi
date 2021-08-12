@@ -3,6 +3,7 @@
 namespace Setrest\OAPIDocumentation\Console\Commands;
 
 use Setrest\OAPIDocumentation\DocumentationFactory;
+use Illuminate\Console\Command;
 
 class GenerateDocumentation extends Command
 {
