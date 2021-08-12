@@ -3,7 +3,7 @@
 return [
 
     'title' => 'OpenAPI documentation.',
-    'description' => 'Auto generated apip documentation',
+    'description' => 'Auto OpenAPI documentation.',
     'version' => "1.0",
 
     'servers' => [
@@ -15,7 +15,6 @@ return [
 
     'responses' => [
         \Setrest\OAPIDocumentation\Router\ResponseFinders\ArrayFinder::class,
-        \Setrest\OAPIDocumentation\Router\ResponseFinders\ResourceFinder::class,
     ],
 
     'api_middleware' => 'api',
