@@ -88,7 +88,7 @@ class RouterService
         $methods = $route->methods();
         $hideHeadMethods = config('hide_head') ?? true;
         
-        if ($hideHeadMethods) {
+        if ($hideHeadMethods && in_array('HEAD', $methods)) {
             unset($methods[array_search('HEAD', $methods)]);
         }
 
