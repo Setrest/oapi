@@ -12,6 +12,10 @@ abstract class CoreResponseFinder implements FinderInterface
      */
     private $nextFinder;
 
+    private $returnCode = null;
+
+    private $methodCode = null;
+
     public function setNext(FinderInterface $finder): FinderInterface
     {
         $this->nextFinder = $finder;
@@ -27,6 +31,11 @@ abstract class CoreResponseFinder implements FinderInterface
      */
     public function find(array $returnCode, array $methodCode): ?ResponseSpec
     {
+        if (!$this->returnCode && !$this->methodCode) {
+            $this->returnCode = $returnCode;
+            $this->methodCode = $methodCode;
+        } 
+
         if ($this->nextFinder) {
             return $this->nextFinder->find($returnCode, $methodCode);
         }
